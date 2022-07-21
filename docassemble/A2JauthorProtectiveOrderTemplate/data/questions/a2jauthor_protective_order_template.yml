@@ -1,0 +1,712 @@
+---
+include:
+  - docassemble.AssemblyLine:al_package.yml
+  # - docassemble.ALAnyState:any_state.yml
+  - docassemble.AKA2JBranding:custom_organization.yml
+---
+metadata:
+  title: |
+    Protective Orders converted from A2J template only
+  short title: |
+    Protective orders template
+  tags:
+    - FA-07-00-00-00
+  authors:
+    - Jeannie Sato
+    - Caroline Robinson
+---
+mandatory: True
+comment: |
+  Global interview metadata
+variable name: interview_metadata["a2jauthor_protective_order_template"]
+data:
+  al_weaver_version: "1.6.3"
+  generated on: "2022-06-17"
+  title: >-
+    Protective Orders converted from A2J template only
+  short title: >-
+    Protective orders template
+  description: |-
+    A2j to da protective orders 20220617 formatted
+  original_form: >-
+    
+  allowed courts: []
+  categories:
+    - "FA-07-00-00-00"
+  typical role: "unknown"
+  generate download screen: True
+---
+code: |
+  interview_metadata['main_interview_key'] =  'a2jauthor_protective_order_template'
+---
+code: |
+  # This controls the default country and list of states in address field questions
+  AL_DEFAULT_COUNTRY = "US"
+---
+code: |
+  # This controls the default state in address field questions
+  AL_DEFAULT_STATE = "AK"
+---
+code: |
+  github_repo_name =  'docassemble-A2JauthorProtectiveOrderTemplate'
+---
+code: |
+  interview_short_title = "Build an action plan to help you deal with domestic violence"
+---
+code: |
+  al_form_type = "other" 
+---
+objects:
+  - users: ALPeopleList.using(ask_number=True,target_number=1)
+---
+sections:
+  - review_a2jauthor_protective_order_template: Review your answers
+---
+#################### Interview order #####################
+comment: |
+  Controls order and branching logic for questions specific to this form
+id: interview_order_a2jauthor_protective_order_template
+code: |
+  # Set the allowed courts for this interview
+  allowed_courts = interview_metadata["a2jauthor_protective_order_template"]["allowed courts"]
+  nav.set_section('review_a2jauthor_protective_order_template')
+  # Below sets the user_role by asking a question.
+  # You can set user_role directly instead to either 'plaintiff' or 'defendant'
+  user_ask_role
+  If_you_or_someone_else_is_in_immediate_danger
+  Screen_two
+  need_safety_info_TF
+  What_is_your_situation
+  tribal_court_TF
+  set_progress(11)
+  Continue_answering_questions_about_Tribal_Court_protective_orders
+  Who_do_you_want_the_protective_order_for
+  protective_order_information_more_than_1_person_TF
+  Are_you_the_childs_parent
+  Are_you_asking_for_a_protective_order_against_your_childs_other_parent
+  set_progress(22)
+  Is_your_relationship_with_the_other_person_covered_by_one_of_these_descriptions
+  List_of_potential_crimes
+  child_with_other_side_Info_TF
+  divorce_info_TF
+  custody_case_information_TF
+  set_progress(33)
+  Based_on_your_answers_a_domestic_violence_protective_ordermay_be_appropriate_Information_about_how_to_ask_the_court_for_a_domestic_violence_protective_order_has_been_added_to_your_Action_Plan
+  ask_for_a_stalking_PO_TF
+  ask_for_a_so_po_TF
+  You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
+  You_may_not_qualify_for_a_Protective_Order
+  set_progress(44)
+  Childs_relationship_with_abusive_person
+  protective_order_information_TF
+  List_of_potential_crimes_My_Child
+  register_foreign_order_TF
+  Did_you_also_request_a_longterm_protective_order
+  set_progress(55)
+  other_side_violated_order_TF
+  Do_you_also_want_your_Action_Plan_to_include_information_about
+  Do_you_want_your_Action_Plan_to_include_information_about
+  Do_you_want_your_Action_Plan_to_include_information_about_extending_the_protective_order
+  short_term_wants_nothing_else_TF
+  set_progress(66)
+  _LT_info_added_change_or_end
+  change_po_against_me_TF
+  respond_PO_change_end_TF
+  have_protective_order_prepare_for_long_hearing_TF
+  change_protective_order_TF
+  set_progress(77)
+  extend_less_than_10_days_TF
+  extend_after_60_days_TF
+  interview_order_a2jauthor_protective_order_template = True
+---
+###################### Main order ######################
+comment: |
+  This block includes the logic for standalone interviews.
+  Delete mandatory: True to include in another interview
+mandatory: True
+code: |
+  al_intro_screen
+  a2jauthor_protective_order_template_intro
+  interview_order_a2jauthor_protective_order_template
+  signature_date    
+  # Save anonymized interview statistics (customize the saved data below)
+  store_variables_snapshot(data={'zip': users[0].address.zip})    
+  a2jauthor_protective_order_template_preview_question
+  basic_questions_signature_flow    
+  a2jauthor_protective_order_template_download
+---
+comment: |
+  This question is used to introduce your interview. Please customize
+id: Protective_Orders_converted_from_A2J_template_only
+continue button field: a2jauthor_protective_order_template_intro
+question: |
+  Protective Orders converted from A2J template only
+subquestion: |
+  **If you or someone else is in immediate danger, call 911. ** 
+  
+  Do you want information about:
+  
+  * safety plans, 
+  * domestic violence programs, 
+  * shelters, and 
+  * hotlines?
+---
+id: If you or someone else is in immediate danger
+question: |
+  If you or someone else is in immediate danger
+subquestion: |
+  **If you or someone else is in immediate danger, call 911.**
+  
+  Do you want information about:
+  
+  *safety plans, 
+  *domestic violence programs, 
+  *shelters, and 
+  *hotlines?
+continue button field: If_you_or_someone_else_is_in_immediate_danger
+---
+id: Screen two
+question: |
+  Screen two
+subquestion: |
+  Information about keeping yourself or someone else safe, domestic violence programs, shelters, and hotlines has been added to your Action Plan.
+  
+  Do you also want information about:
+  
+  - getting a court order that protects you or a child from another person, called a protective order, or
+  
+  - if you already have a protective order: changing or ending it, preparing for a hearing, reporting a violation, responding to a request to change or end it, or registering a protective order from another state in Alaska?
+continue button field: Screen_two
+---
+id: What is your situation
+question: |
+  What is your situation?
+yesno: need_safety_info_TF
+---
+id: What is your situation
+question: |
+  What is your situation?
+subquestion: |
+  already have safety information
+continue button field: What_is_your_situation
+---
+id: Military or Tribal
+question: |
+  Military or Tribal
+subquestion: |
+  This process only addresses civil protective orders through the Alaska Court System.   You may have other options for protective orders:
+  
+  - Military: If any of the parties involved are in the military, you may qualify for a protective order from the military. 
+  
+  - Tribal Court: If any of the parties involved are tribal members, you may qualify for a protective order from the Tribal Court.
+fields:
+  - "Review resources for tribal members": tribal_court_TF
+    datatype: yesno
+  - "Review resources for military dependents": military_information_TF
+    datatype: yesno
+---
+id: Continue answering questions about Tribal Court protective orders
+question: |
+  Continue answering questions about Tribal Court protective orders?
+subquestion: |
+  Information about Tribal Court protective orders has been added to your Action Plan.  Do you want to continue answering questions for more information about Alaska Court System protective orders, or stop and get your Action Plan to learn more about Tribal Court protective orders now?
+continue button field: Continue_answering_questions_about_Tribal_Court_protective_orders
+---
+id: Who do you want the protective order for
+question: |
+  Who do you want the protective order for?
+subquestion: |
+  A parent can get a protective order and ask the court for temporary custody and to order the other person to stay away from specific locations including a child's school.  A parent can also ask for a protective order for themselves and 1 or more children but each person must meet the protective order requirements.
+continue button field: Who_do_you_want_the_protective_order_for
+---
+id: Are you asking for a protective order for yourself and your child against your child s other parent
+question: |
+  Are you asking for a protective order for yourself and your child against your child's other parent?
+yesno: protective_order_information_more_than_1_person_TF
+---
+id: Are you the child s parent
+question: |
+  Are you the child's parent?
+continue button field: Are_you_the_childs_parent
+---
+id: Are you asking for a protective order against your child s other parent
+question: |
+  Are you asking for a protective order against your child's other parent?
+continue button field: Are_you_asking_for_a_protective_order_against_your_childs_other_parent
+---
+id: Is your relationship with the other person covered by one of these descriptions
+question: |
+  Is your relationship with the other person covered by one of these descriptions?
+subquestion: |
+  Is your relationship with the other person covered by one of these descriptions? 
+  
+  - Married to each other now or in the past
+  
+  - Dating / sexual relationship now or in past
+  
+  - Living together now or in past (roommates or romantic relationship)
+  
+  - Have child together
+  
+  - Related by marriage now or in past (such as in-laws)
+  
+  - Blood relatives such as parents, siblings, children, grandchildren, aunts, uncles, nephews, nieces, first cousins
+  
+  - The person asking for the protective order is a child of a person in a relationship described above
+continue button field: Is_your_relationship_with_the_other_person_covered_by_one_of_these_descriptions
+---
+id: List of potential crimes
+question: |
+  List of potential crimes
+subquestion: |
+  To get a protective order, the other person must have committed a "crime of domestic violence" against you.  The crimes are listed below.  You don't need to know the name or definition of the crime, but you must tell the judge specifically what domestic violence behavior the other person did to you.    Common examples are when someone hits you or makes you afraid they are about to hurt you. 
+  
+  Did you experience the other person's domestic violence behavior?
+continue button field: List_of_potential_crimes
+---
+id: Do you and the other side have any children together
+question: |
+  Do you and the other side have any children together?
+subquestion: |
+  If you and the other side have any children together, you can ask the court to make a parenting schedule and order child support as part of the protective order.
+yesno: child_with_other_side_Info_TF
+---
+id: do you want information about ending your marriage through a separate case for a divorce or dissolution
+question: |
+  do you want information about ending your marriage through a separate case for a divorce or dissolution?
+subquestion: |
+  If you are married to the other person, do you want information about ending your marriage through a separate case for a divorce or dissolution?
+yesno: divorce_info_TF
+---
+id: do you want information about starting a separate court case to get parenting plan custody and child support orders
+question: |
+  do you want information about starting a separate court case to get parenting plan, custody, and child support orders?
+subquestion: |
+  If you and the other side have any children together, do you want information about starting a separate court case to get parenting plan, custody, and child support orders?
+yesno: custody_case_information_TF
+---
+id: Based on your answers a domestic violence protective order may be appropriate Information about how to ask the court for a domestic violence protective order has been added to your Action Plan
+question: |
+  Based on your answers, a domestic violence protective order may be appropriate.  Information about how to ask the court for a domestic violence protective order has been added to your Action Plan.
+subquestion: |
+  Did you know there are 3 different lengths of time for a domestic violence protective order?
+  (1) A short-term domestic violence protective order starts right away and lasts 20 days.  It is also called an ex parte protective order.  The other side is not notified the order is being requested but if granted, law enforcement will give the other side a copy and explain what it says.  (2) A long-term domestic violence protective order lasts 1 year.  You can request a long-term protective order at the same time you ask for a short-term protective order.   The other side is notified if you request this. The court schedules a hearing about 20 days after the long-term order is requested and both sides can testify.  If a short-term or long-term domestic violence protective order is granted, the court will prohibit the other side from committing domestic violence.  (3) There is a third type of domestic violence protective order called an emergency domestic violence protective order.  While uncommon, a law enforcement officer can request an emergency domestic violence protective order on behalf of a victim and if granted, it lasts for 72 hours.
+continue button field: Based_on_your_answers_a_domestic_violence_protective_ordermay_be_appropriate_Information_about_how_to_ask_the_court_for_a_domestic_violence_protective_order_has_been_added_to_your_Action_Plan
+---
+id: Repeated contact
+question: |
+  Repeated contact?
+subquestion: |
+  Did the other person:
+  
+  1. repeatedly contact you or a family member
+  
+  2. without consent
+  
+  3. in a way that caused you fear of physical injury or death to yourself or a family member?
+  
+  A stalking protective order may be an option if you were repeatedly contacted without consent by someone who is not a relative, roommate, or intimate partner in a way that caused you fear of physical injury or death to yourself or a family member.
+yesno: ask_for_a_stalking_PO_TF
+---
+id: Sexual contact without consent
+question: |
+  Sexual contact without consent
+subquestion: |
+  Did the other person have sexual contact with you without consent?
+  
+  A sexual assault protective order may be an option if someone who is not a relative, roommate, or intimate partner had sexual contact with you without your consent.
+fields:
+  - "Ask for a sexual assault protective order": ask_for_a_so_po_TF
+    datatype: yesno
+  - "Review options for when you may not qualify for a protective order": safety_info_when_dont_qualify_TF
+    datatype: yesno
+---
+id: You may not qualify for a Domestic Violence Protective Order
+question: |
+  You may not qualify for a Domestic Violence Protective Order
+subquestion: |
+  Based on your answers, a domestic violence protective order may not be appropriate if there was no domestic violence crime.  You may be experiencing domestic violence that may not be considered a crime under the law such as calling you names, making you feel like you shouldn't talk to friends or family, or limiting your access to money.  If you don't qualify for a protective order you can take steps to stay safe.  Information about options and safety planning has been added to your Action Plan.
+continue button field: You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
+---
+id: You may not qualify for a Protective Order
+question: |
+  You may not qualify for a Protective Order
+subquestion: |
+  Based on your answers, a protective order may not be appropriate.  If you don't qualify for a protective order you can take steps to stay safe.  Information about options and safety planning has been added to your Action Plan.
+continue button field: You_may_not_qualify_for_a_Protective_Order
+---
+id: Child s relationship with abusive person
+question: |
+  Child's relationship with abusive person
+subquestion: |
+  Is the child's relationship with the other person covered by one of these descriptions? 
+  
+  - Married to each other now or in the past
+  
+  - Dating / sexual relationship now or in past
+  
+  - Living together now or in past (roommates or romantic relationship)
+  
+  - Have child together
+  
+  - Related by marriage now or in past (such as in-laws)
+  
+  - Blood relatives such as parents, siblings, children, grandchildren, aunts, uncles, nephews, nieces, first cousins
+  
+  - The person asking for the protective order is a child of a person in a relationship described above
+  
+  Why does the relationship matter?
+  If the child doesn't have one of the listed relationships, the child may not qualify for a domestic violence protective order, but may qualify for a stalking or sexual assault protective order, depending on the other side's actions.
+continue button field: Childs_relationship_with_abusive_person
+---
+id: List of potential crimes Child
+question: |
+  List of potential crimes (Child)
+subquestion: |
+  To get a protective order, the other person must have committed a "crime of domestic violence" against the child.  The crimes are listed below.  You don't need to know the name or definition of the crime, but you must tell the judge specifically what domestic violence behavior the other person did to the child.    Common examples are when someone hits, or makes someone afraid they are about to be hurt. 
+  
+  Did the child experience the other person's domestic violence behavior?
+  
+  Assault (physically hurting someone including making someone afraid they are about to be hurt) - Criminal mischief (damaging someone's property) - Harassment (including repeated calls at extremely inconvenient times) - Reckless endangerment (recklessly behaving in a way that risks serious injury to someone) - Arson - Assault on an unborn child - Burglary - Coercion - Criminally negligent burning - Criminal trespass - Cruelty to pets - Custodial interference - Extortion - Homicide - Human trafficking - Kidnapping - Reckless endangerment - Robbery - Sexual offenses - Stalking - Terroristic threatening - Violating a protective order
+yesno: protective_order_information_TF
+---
+id: List of potential crimes My Child
+question: |
+  List of potential crimes (My Child)
+subquestion: |
+  To get a protective order, the other person must have committed a "crime of domestic violence" against your child.  The crimes are listed below.  You don't need to know the name or definition of the crime, but you must tell the judge specifically what domestic violence behavior the other person did to your child.    Common examples are when someone hits, or makes someone afraid they are about to be hurt. 
+  
+  Did your child experience the other person's domestic violence behavior?
+  learn more: Here is the list of domestic violence crimes:....
+continue button field: List_of_potential_crimes_My_Child
+---
+id: Foreign protective order
+question: |
+  Foreign protective order
+subquestion: |
+  Information about registering a protective order with the Alaska Court System has been added to your Action Plan.
+  
+  Do you also want information about getting a protective order from the Alaska Court System?
+yesno: register_foreign_order_TF
+---
+id: Did you also request a long term protective order
+question: |
+  Did you also request a long-term protective order?
+continue button field: Did_you_also_request_a_longterm_protective_order
+---
+id: Has the other side violated the protective order
+question: |
+  Has the other side violated the protective order?
+yesno: other_side_violated_order_TF
+---
+id: Do you also want your Action Plan to include information about
+question: |
+  Do you also want your Action Plan to include information about
+subquestion: |
+  asking the court to change or end the protective order, or how to respond if the other side filed papers that asked the court to change or end the protective order (usually called a Request to Modify or a Request to Dissolve)?
+  
+  Change End MC
+continue button field: Do_you_also_want_your_Action_Plan_to_include_information_about
+---
+id: Do you want your Action Plan to include information about
+question: |
+  Do you want your Action Plan to include information about
+subquestion: |
+  asking the court to change or end the protective order, or how to respond if the other side filed papers that asked the court to change or end the protective order (usually called a Request to Modify or a Request to Dissolve)?
+  IF [Change End MC] = "change" 
+  SET [Change protective order TF] TO TRUE
+  GOTO "5x -done"
+  END IF
+  
+  
+  IF [Change End MC] = "end" 
+  SET [End protective order TF] TO TRUE
+  GOTO "5x -done"
+  END IF
+  
+  
+  IF [Change End MC] = "respond" 
+  SET [Respond PO change end TF] TO TRUE
+  GOTO "5x -done"
+  END IF
+  
+  IF [Change End MC] = "none" 
+  GOTO "5x -done"
+  END IF
+continue button field: Do_you_want_your_Action_Plan_to_include_information_about
+---
+id: Do you want your Action Plan to include information about extending the protective order
+question: |
+  Do you want your Action Plan to include information about extending the protective order?
+continue button field: Do_you_want_your_Action_Plan_to_include_information_about_extending_the_protective_order
+---
+id: 9n Extend LT has AP
+question: |
+  9n- Extend (LT has AP)
+subquestion: |
+  Do you want your Action Plan to include information about extending the protective order?
+yesno: short_term_wants_nothing_else_TF
+---
+id: 4 LT info added change or end
+question: |
+  4 -LT info added change or end
+subquestion: |
+  Information about how to prepare for your long-term hearing has been added to your Action Plan.
+  
+  [Respondent change end MC]
+  
+  Do you also want your Action Plan to include information about asking the court to change or end the protective order, or how to respond if the other side filed papers that asked the court to change or end the protective order (usually called a Request to Modify or a Request to Dissolve)?
+  
+  
+  
+  I want information about changing the protective order
+  
+  
+  I want information about ending the protective order
+  
+  
+  I want information about responding when the other side asks to modify or dissolve the protective order
+  
+  
+  No, I do not want information about any of these
+continue button field: _LT_info_added_change_or_end
+---
+id: 5 change or end no AP
+question: |
+  5 -change or end no AP
+subquestion: |
+  Do you want your Action Plan to include information about asking the court to change or end the protective order, or how to respond if the other side filed papers that asked the court to change or end the protective order (usually called a Request to Modify or a Request to Dissolve)?
+fields:
+  - "Ask to change a protective order against you": change_po_against_me_TF
+    datatype: yesno
+  - "Review tips for when someone has a protective order against you": no_to_change_order_against_me_TF
+    datatype: yesno
+  - "Respond to a request to modify, dissolve, or extend the protective order": respond_change_end_po_against_me_TF
+    datatype: yesno
+---
+id: 8n add change end LT no AP
+question: |
+  8n - add change end (LT no AP)
+subquestion: |
+  Do you want your Action Plan to include information about asking the court to change or end the protective order, or how to respond if the other side filed papers that asked the court to change or end the protective order (usually called a Request to Modify or a Request to Dissolve)?
+  
+  IF [Change End MC] = "change" 
+  SET [Change protective order TF] TO TRUE
+  GOTO "9- Extend (LT has AP)"
+  END IF
+  
+  
+  IF [Change End MC] = "end" 
+  SET [End protective order TF] TO TRUE
+  GOTO "9- Extend (LT has AP)"
+  END IF
+  
+  
+  IF [Change End MC] = "respond" 
+  SET [Respond PO change end TF] TO TRUE
+  GOTO "9- Extend (LT has AP)"
+  END IF
+  
+  
+  IF [Change End MC] = "none" 
+  GOTO "9n- Extend (LT has AP)"
+  END IF
+yesno: respond_PO_change_end_TF
+---
+id: 3 Short or long term
+question: |
+  3-Short or long term
+subquestion: |
+  Do you have a short-term (20 day) or long-term protective order?
+  What if I am not sure?
+  Look at the protective order that you have signed by the judge.  It will tell you what type it is.
+yesno: have_protective_order_prepare_for_long_hearing_TF
+---
+id: 6a end has AP
+question: |
+  6a -end has AP
+subquestion: |
+  Information about what to do if someone violated the protective order has been added to your Action Plan. 
+  
+  Do you also want your Action Plan to include information about asking the court to change or end the protective order, or how to respond if the other side filed papers that asked the court to change or end the protective order (usually called a Request to Modify or a Request to Dissolve)?
+yesno: change_protective_order_TF
+---
+id: 12 How long until expire
+question: |
+  12. How long until expire
+subquestion: |
+  How long until the current long-term protective order expires?
+fields:
+  - "Ask to extend your protective order that expires in less than 10 days": extend_less_than_10_days_TF
+    datatype: yesno
+  - "Ask to extend your protective order that expires more than 10 days from now": extend_more_than_10_days_TF
+    datatype: yesno
+---
+id: 11 How long ago
+question: |
+  11. How long ago
+subquestion: |
+  How long ago did your most recent long-term protective order expire?
+yesno: extend_after_60_days_TF
+---
+id: preview a2jauthor_protective_order_template
+question: |
+  Preview your form before you sign it
+subquestion: |
+  Here is a preview of the form you will sign on the next page.   
+  
+  ${ al_court_bundle.as_pdf(key='preview') }
+
+  Click the image to open it in a new tab. Click the "Edit answers" button
+  to edit your answers.
+
+  ${ action_button_html(url_action('review_a2jauthor_protective_order_template'), label='Edit answers', color='info') }
+  
+  Remember to come back to this window to continue and sign your form.
+continue button field: a2jauthor_protective_order_template_preview_question    
+---
+code: |
+  signature_fields = []
+---
+code: |
+  # This is a placeholder for the addresses that will be searched
+  # for matching address to court. Edit if court venue is based on 
+  # a different address than the user's
+  addresses_to_search = [user.address for user in users]
+---
+id: a2jauthor protective order template review screen
+event: review_a2jauthor_protective_order_template
+question: |
+  Review your answers
+review:
+  - Edit: tribal_court_TF
+    button: |
+      **Review resources for tribal members**:
+      ${ word(yesno(tribal_court_TF)) }
+  - Edit: protective_order_information_more_than_1_person_TF
+    button: |
+      **Ask for a domestic violence protective order for more than 1 person**:
+      ${ word(yesno(protective_order_information_more_than_1_person_TF)) }
+  - Edit: short_term_wants_nothing_else_TF
+    button: |
+      **Review information for when you already have a protective order**:
+      ${ word(yesno(short_term_wants_nothing_else_TF)) }
+  - Edit: child_with_other_side_Info_TF
+    button: |
+      **Think about parenting issues**:
+      ${ word(yesno(child_with_other_side_Info_TF)) }
+  - Edit: ask_for_a_stalking_PO_TF
+    button: |
+      **Ask for a stalking protective order**:
+      ${ word(yesno(ask_for_a_stalking_PO_TF)) }
+  - Edit: custody_case_information_TF
+    button: |
+      **Start a case for a parenting plan (also known as a \"custody order\")**:
+      ${ word(yesno(custody_case_information_TF)) }
+  - Edit: ask_for_a_so_po_TF
+    button: |
+      **Ask for a sexual assault protective order**:
+      ${ word(yesno(ask_for_a_so_po_TF)) }
+  - Edit: respond_PO_change_end_TF
+    button: |
+      **Respond to a request to modify or dissolve the protective order**:
+      ${ word(yesno(respond_PO_change_end_TF)) }
+  - Edit: have_protective_order_prepare_for_long_hearing_TF
+    button: |
+      **Prepare for your long-term protective order hearing**:
+      ${ word(yesno(have_protective_order_prepare_for_long_hearing_TF)) }
+  - Edit: other_side_violated_order_TF
+    button: |
+      **Review options for when the protective order is violated**:
+      ${ word(yesno(other_side_violated_order_TF)) }
+  - Edit: change_protective_order_TF
+    button: |
+      **Ask to change a protective order**:
+      ${ word(yesno(change_protective_order_TF)) }
+  - Edit: need_safety_info_TF
+    button: |
+      **Stay safe**:
+      ${ word(yesno(need_safety_info_TF)) }
+  - Edit: protective_order_information_TF
+    button: |
+      **Ask for a domestic violence protective order for 1 person**:
+      ${ word(yesno(protective_order_information_TF)) }
+  - Edit: change_po_against_me_TF
+    button: |
+      **Ask to change a protective order against you**:
+      ${ word(yesno(change_po_against_me_TF)) }
+  - Edit: military_information_TF
+    button: |
+      **Review resources for military dependents**:
+      ${ word(yesno(military_information_TF)) }
+  - Edit: extend_less_than_10_days_TF
+    button: |
+      **Ask to extend your protective order that expires in less than 10 days**:
+      ${ word(yesno(extend_less_than_10_days_TF)) }
+  - Edit: divorce_info_TF
+    button: |
+      **Start a case to end your marriage**:
+      ${ word(yesno(divorce_info_TF)) }
+  - Edit: register_foreign_order_TF
+    button: |
+      **register_foreign_order_TF %} Register a protective order from another state or tribal court**:
+      ${ word(yesno(register_foreign_order_TF)) }
+  - Edit: no_to_change_order_against_me_TF
+    button: |
+      **Review tips for when someone has a protective order against you**:
+      ${ word(yesno(no_to_change_order_against_me_TF)) }
+  - Edit: extend_more_than_10_days_TF
+    button: |
+      **Ask to extend your protective order that expires more than 10 days from now**:
+      ${ word(yesno(extend_more_than_10_days_TF)) }
+  - Edit: extend_after_60_days_TF
+    button: |
+      **Review options if your protective order expired more than 60 days ago**:
+      ${ word(yesno(extend_after_60_days_TF)) }
+  - Edit: respond_change_end_po_against_me_TF
+    button: |
+      **Respond to a request to modify, dissolve, or extend the protective order**:
+      ${ word(yesno(respond_change_end_po_against_me_TF)) }
+  - Edit: safety_info_when_dont_qualify_TF
+    button: |
+      **Review options for when you may not qualify for a protective order**:
+      ${ word(yesno(safety_info_when_dont_qualify_TF)) }
+---
+id: download a2jauthor_protective_order_template
+event: a2jauthor_protective_order_template_download
+question: |
+  All done
+subquestion: |
+  Thank you ${users}. Your form is ready to download and deliver.
+  
+  View, download and send your form below. Click the "Edit answers" button to fix any mistakes.
+
+  ${ action_button_html(url_action('review_a2jauthor_protective_order_template'), label='Edit answers', color='info') }
+  
+  
+  ${ al_user_bundle.download_list_html() }
+  
+
+  ${ al_user_bundle.send_button_html(show_editable_checkbox=True) }
+
+progress: 100
+---
+objects:
+  - a2jauthor_protective_order_template_post_interview_instructions: ALDocument.using(title="Instructions", filename="a2jauthor_protective_order_template_next_steps.docx", enabled=True, has_addendum=False, default_overflow_message=AL_DEFAULT_OVERFLOW_MESSAGE)
+  - a2jauthor_protective_order_template_attachment: ALDocument.using(title="Protective Orders converted from A2J template only", filename="a2jauthor_protective_order_template.docx", enabled=True, has_addendum=False, default_overflow_message=AL_DEFAULT_OVERFLOW_MESSAGE)
+---
+objects:
+  - al_user_bundle: ALDocumentBundle.using(elements=[a2jauthor_protective_order_template_post_interview_instructions,a2jauthor_protective_order_template_attachment], filename="a2jauthor_protective_order_template.docx_package.pdf", title="All forms to download for your records", enabled=True)
+  - al_court_bundle: ALDocumentBundle.using(elements=[a2jauthor_protective_order_template_attachment], filename="a2jauthor_protective_order_template.docx_package.pdf", title="All forms to download for your records", enabled=True)
+---
+attachments:
+  - name: a2jauthor protective order template post interview instructions
+    filename: Post-interview-instructions     
+    variable name: a2jauthor_protective_order_template_post_interview_instructions[i]        
+    skip undefined: True
+    docx template file: a2jauthor_protective_order_template_next_steps.docx
+  - name: a2jauthor protective order template attachment
+    filename: a2jauthor_protective_order_template.docx     
+    variable name: a2jauthor_protective_order_template_attachment[i]        
+    skip undefined: True
+    docx template file: a2jauthor_protective_order_template.docx
