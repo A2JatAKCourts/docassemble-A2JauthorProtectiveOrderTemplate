@@ -75,18 +75,17 @@ code: |
   # You can set user_role directly instead to either 'plaintiff' or 'defendant'
   # user_ask_role
   need_safety_info_TF
-  if your_situation in ('me', 'me and children', 'my child'):
+  if your_situation in ('get'):
     if protective_order_court['military']:
-      military_information_TF
       if continue_after_military_info == 'get plan':        
         interview_order_a2jauthor_protective_order_template = True
         a2jauthor_protective_order_template_preview_question
     if protective_order_court['tribal']:
-      tribal_court_TF
       if continue_after_tribal_info == 'get plan':
         interview_order_a2jauthor_protective_order_template = True
         a2jauthor_protective_order_template_preview_question
     if protective_order_court['ak court']:
+      who_needs_the_order
       eligibile_petitioner_question_seen
     set_progress(11)
     Are_you_the_childs_parent
@@ -119,7 +118,7 @@ code: |
   #    tribal_court_TF
   #    set_progress(11)
   #    Continue_answering_questions_about_Tribal_Court_protective_orders
-  #  Who_do_you_want_the_protective_order_for
+  #  Who_do_you_want_the_protective_order_for -> who_needs_the_order
   #    protective_order_information_more_than_1_person_TF
   #    Are_you_the_childs_parent
   #    Are_you_asking_for_a_protective_order_against_your_childs_other_parent
@@ -215,9 +214,15 @@ fields:
     #  minlength: 1
     input type: radio
     choices:
-      - 'Get a court order to protect me.': 'me'
-      - 'Get a court order to protect me and my children.': 'me and children'
-      - 'Get a court order to protect my child.': 'my child'
+      - 'Get a protective court order.': 'get'
+        help: |
+          You can ask the judge for an order to:
+
+          * protect you, 
+          * include protections for your children in your order, or 
+          * protect your children separately.
+    #  - 'Get a court order to protect me and my children.': 'me and children'
+    #  - 'Get a court order to protect my child.': 'my child'
       - 'Change a protective order.': 'change'
       - 'End a protective order.': 'end'
       - 'Prepare for a hearing.': 'hearing'
@@ -234,7 +239,6 @@ fields:
 #      * a domestic violence protective order, 
 #      * a stalking protective orders, or 
 #      * a sexual assault protective order.
-            
 ---
 #  id: What is your situation
 #  question: |
@@ -298,14 +302,25 @@ buttons:
       code: |
         continue_after_military_info = 'get plan'
 ---
-#  id: Who do you want the protective order for
-#  question: |
-#    Who do you want the protective order for?
-#  subquestion: |
-#    A parent can get a protective order and ask the court for temporary custody and to order the other person to stay away from specific locations including a child's school.
-#    
-#    A parent can also ask for a protective order for themselves and 1 or more children but each person must meet the protective order requirements.
-#  continue button field: Who_do_you_want_the_protective_order_for
+id: Who needs the protective order
+question: |
+  What do you need the court to order?
+subquestion: |
+  A parent can get a protective order and ask the court for temporary custody and to order the other person to stay away from specific locations including a child's school.
+  
+  A parent can also ask for a protective order for themselves and 1 or more children but each person must meet the protective order requirements.
+  
+fields: 
+  - no label: who_needs_the_order
+    #  minlength: 1
+    input type: radio
+    choices:
+      - 'A protective order for myself.': 'me' 
+      - 'A protective order for myself that also:[BR]&nbsp;&nbsp;&nbsp;&nbsp;Gives me temporary custody of my children. And[BR]&nbsp;&nbsp;&nbsp;&nbsp;Forbids the person who abused me to contact my children.': 'me and children'
+      - 'A protective order for myself and an order for each child the abusive person harmed.': 'each child'
+      - 'A protective order for each of my children.': 'child'  
+  
+  #  continue button field: Who_do_you_want_the_protective_order_for
 ---
 id: number of children in my order
 question: |
