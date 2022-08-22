@@ -33,7 +33,7 @@ data:
   allowed courts: []
   categories:
     - "FA-07-00-00-00"
-  typical role: "unknown"
+  # typical role: "unknown"
   generate download screen: True
 ---
 code: |
@@ -51,13 +51,14 @@ code: |
   github_repo_name =  'docassemble-A2JauthorProtectiveOrderTemplate'
 ---
 code: |
-  interview_short_title = "Build an action plan to help you deal with domestic violence"
+  interview_short_title = "Action plan for domestic violence"
 ---
 code: |
   al_form_type = "other" 
 ---
 objects:
-  - users: ALPeopleList.using(ask_number=True,target_number=1)
+  #  - users: ALPeopleList.using(ask_number=True,target_number=1)
+  - users: ALPeopleList.using(there_are_any=False)
 ---
 sections:
   - review_a2jauthor_protective_order_template: Review your answers
@@ -72,34 +73,72 @@ code: |
   nav.set_section('review_a2jauthor_protective_order_template')
   # Below sets the user_role by asking a question.
   # You can set user_role directly instead to either 'plaintiff' or 'defendant'
-  user_ask_role
-  If_you_or_someone_else_is_in_immediate_danger
-  Screen_two
+  # user_ask_role
   need_safety_info_TF
-  What_is_your_situation
-  tribal_court_TF
-  set_progress(11)
-  Continue_answering_questions_about_Tribal_Court_protective_orders
-  Who_do_you_want_the_protective_order_for
-  protective_order_information_more_than_1_person_TF
-  Are_you_the_childs_parent
-  Are_you_asking_for_a_protective_order_against_your_childs_other_parent
-  set_progress(22)
-  Is_your_relationship_with_the_other_person_covered_by_one_of_these_descriptions
-  List_of_potential_crimes
-  child_with_other_side_Info_TF
-  divorce_info_TF
-  custody_case_information_TF
-  set_progress(33)
-  Based_on_your_answers_a_domestic_violence_protective_ordermay_be_appropriate_Information_about_how_to_ask_the_court_for_a_domestic_violence_protective_order_has_been_added_to_your_Action_Plan
-  ask_for_a_stalking_PO_TF
-  ask_for_a_so_po_TF
-  You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
-  You_may_not_qualify_for_a_Protective_Order
-  set_progress(44)
-  Childs_relationship_with_abusive_person
-  protective_order_information_TF
-  List_of_potential_crimes_My_Child
+  if your_situation in ('me', 'me and children', 'my child'):
+    if protective_order_court['military']:
+      military_information_TF
+      if continue_after_military_info == 'get plan':        
+        interview_order_a2jauthor_protective_order_template = True
+        a2jauthor_protective_order_template_preview_question
+    if protective_order_court['tribal']:
+      tribal_court_TF
+      if continue_after_tribal_info == 'get plan':
+        interview_order_a2jauthor_protective_order_template = True
+        a2jauthor_protective_order_template_preview_question
+    if protective_order_court['ak court']:
+      eligibile_petitioner_question_seen
+    set_progress(11)
+    Are_you_the_childs_parent
+    Are_you_asking_for_a_protective_order_against_your_childs_other_parent
+    set_progress(22)
+    Is_your_relationship_with_the_other_person_covered_by_one_of_these_descriptions
+    List_of_potential_crimes
+    child_with_other_side_Info_TF
+    divorce_info_TF
+    custody_case_information_TF
+    set_progress(33)
+    ask_for_order_added
+    ask_for_a_stalking_PO_TF
+    ask_for_a_so_po_TF
+    You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
+    You_may_not_qualify_for_a_Protective_Order
+    set_progress(44)
+    childs_relationship_with_abusive_person
+    protective_order_information_TF
+    list_of_potential_crimes_My_Child
+
+      
+  if your_situation in ('change', 'end', 'hearing', 'report','register'):
+    ak_order_now
+  if your_situation in ('answer'):
+    respondent_info
+  
+  #    your_situation 
+  #    What_is_your_situation
+  #    tribal_court_TF
+  #    set_progress(11)
+  #    Continue_answering_questions_about_Tribal_Court_protective_orders
+  #  Who_do_you_want_the_protective_order_for
+  #    protective_order_information_more_than_1_person_TF
+  #    Are_you_the_childs_parent
+  #    Are_you_asking_for_a_protective_order_against_your_childs_other_parent
+  #    set_progress(22)
+  #    Is_your_relationship_with_the_other_person_covered_by_one_of_these_descriptions
+  #    List_of_potential_crimes
+  #    child_with_other_side_Info_TF
+  #    divorce_info_TF
+  #    custody_case_information_TF
+  #    set_progress(33)
+  #    ask_for_order_added
+  #    ask_for_a_stalking_PO_TF
+  #    ask_for_a_so_po_TF
+  #    You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
+  #    You_may_not_qualify_for_a_Protective_Order
+  # set_progress(44)
+  # Childs_relationship_with_abusive_person
+  # protective_order_information_TF
+  # List_of_potential_crimes_My_Child
   register_foreign_order_TF
   Did_you_also_request_a_longterm_protective_order
   set_progress(55)
@@ -128,11 +167,11 @@ code: |
   al_intro_screen
   a2jauthor_protective_order_template_intro
   interview_order_a2jauthor_protective_order_template
-  signature_date    
+  #  signature_date    
   # Save anonymized interview statistics (customize the saved data below)
-  store_variables_snapshot(data={'zip': users[0].address.zip})    
+  # store_variables_snapshot(data={'zip': users[0].address.zip})    
   a2jauthor_protective_order_template_preview_question
-  basic_questions_signature_flow    
+  #  basic_questions_signature_flow    
   a2jauthor_protective_order_template_download
 ---
 comment: |
@@ -140,96 +179,164 @@ comment: |
 id: Protective_Orders_converted_from_A2J_template_only
 continue button field: a2jauthor_protective_order_template_intro
 question: |
-  Protective Orders converted from A2J template only
-subquestion: |
   **If you or someone else is in immediate danger, call 911. ** 
-  
+subquestion: |
   Do you want information about:
   
   * safety plans, 
   * domestic violence programs, 
   * shelters, and 
   * hotlines?
----
-id: If you or someone else is in immediate danger
-question: |
-  If you or someone else is in immediate danger
-subquestion: |
-  **If you or someone else is in immediate danger, call 911.**
-  
-  Do you want information about:
-  
-  *safety plans, 
-  *domestic violence programs, 
-  *shelters, and 
-  *hotlines?
-continue button field: If_you_or_someone_else_is_in_immediate_danger
----
-id: Screen two
-question: |
-  Screen two
-subquestion: |
-  Information about keeping yourself or someone else safe, domestic violence programs, shelters, and hotlines has been added to your Action Plan.
-  
-  Do you also want information about:
-  
-  - getting a court order that protects you or a child from another person, called a protective order, or
-  
-  - if you already have a protective order: changing or ending it, preparing for a hearing, reporting a violation, responding to a request to change or end it, or registering a protective order from another state in Alaska?
-continue button field: Screen_two
----
-id: What is your situation
-question: |
-  What is your situation?
 yesno: need_safety_info_TF
 ---
-id: What is your situation
+id: Your situation
 question: |
-  What is your situation?
+ What
+ % if need_safety_info_TF:
+ else
+ % else:
+ information
+ % endif
+  do you need?
 subquestion: |
-  already have safety information
-continue button field: What_is_your_situation
----
-id: Military or Tribal
-question: |
-  Military or Tribal
-subquestion: |
-  This process only addresses civil protective orders through the Alaska Court System.   You may have other options for protective orders:
+  % if need_safety_info_TF:
+  Your Action Plan now has information about:
   
-  - Military: If any of the parties involved are in the military, you may qualify for a protective order from the military. 
+  * hotlines,
+  * keeping yourself or someone else safe, and
+  * domestic violence programs and shelters.
   
-  - Tribal Court: If any of the parties involved are tribal members, you may qualify for a protective order from the Tribal Court.
+  What else do you need to do?
+  % else:
+  I need to know how to:
+  % endif
 fields:
-  - "Review resources for tribal members": tribal_court_TF
-    datatype: yesno
-  - "Review resources for military dependents": military_information_TF
-    datatype: yesno
+  - no label: your_situation
+    #  minlength: 1
+    input type: radio
+    choices:
+      - 'Get a court order to protect me.': 'me'
+      - 'Get a court order to protect me and my children.': 'me and children'
+      - 'Get a court order to protect my child.': 'my child'
+      - 'Change a protective order.': 'change'
+      - 'End a protective order.': 'end'
+      - 'Prepare for a hearing.': 'hearing'
+      - 'Report a violation.': 'report'
+      - 'Respond if someone wants to end or change my protective order.': 'respond' 
+      - 'Register my protective order from another state in Alaska.': 'register'
+      - 'Respond if someone has a protective order against me.': 'answer'
+# Comment: move this content to a screen that makes more sense
+#  - note: |
+#      
+#      #### <i class="fa-regular fa-lightbulb"></i> Different types of protective orders ####
+#      Your relationship with the person you need protection from tells the court the kind of protective order you need. The court can order:
+#      
+#      * a domestic violence protective order, 
+#      * a stalking protective orders, or 
+#      * a sexual assault protective order.
+            
 ---
+#  id: What is your situation
+#  question: |
+#    What is your situation?
+#  subquestion: |
+#    already have safety information
+#  continue button field: What_is_your_situation
+#  ---
+#  id: Military or Tribal
+id: Alaska court system process
+question: |
+  Alaska Court system
+subquestion: |
+  This process only addresses civil protective orders through the **Alaska Court System**.
+  
+  You may have other options for protective orders:
+  
+  * Military: If any of the parties involved are in the military, you may qualify for a protective order from the military. 
+  
+  * Tribal Court: If any of the parties involved are tribal members, you may qualify for a protective order from the Tribal Court.
+fields:
+  - no label: protective_order_court
+    minlength: 1
+    datatype: checkboxes
+    choices:
+      - 'I would like information about Alaska Court System protective orders': 'ak court'
+      - 'I would like information about military protective orders': 'military'
+      - 'I would like information about Tribal Court protective orders': 'tribal'
+---
+#  code: |
+#    if protective_order_court == 'military':
+#      military_information_TF = True
+#  ---
+#  code: |
+#    if protective_order_court == 'tribal':
+#      tribal_court_TF = True
+#  ---
 id: Continue answering questions about Tribal Court protective orders
 question: |
-  Continue answering questions about Tribal Court protective orders?
+  We have added information about Tribal Court protective orders to your Action Plan.
 subquestion: |
-  Information about Tribal Court protective orders has been added to your Action Plan.  Do you want to continue answering questions for more information about Alaska Court System protective orders, or stop and get your Action Plan to learn more about Tribal Court protective orders now?
-continue button field: Continue_answering_questions_about_Tribal_Court_protective_orders
+    Do you want to continue answering questions for more information about Alaska Court System protective orders, or stop and get your Action Plan to learn more about Tribal Court protective orders now?
+buttons:
+  - Keep answering questions:
+      code: |
+        continue_after_tribal_info = 'keep going'
+  - Get my Action Plan now:
+      code: |
+        continue_after_tribal_info = 'get plan'
 ---
-id: Who do you want the protective order for
+id: Continue answering questions about military protective orders
 question: |
-  Who do you want the protective order for?
+  We have added information about military protective orders to your Action Plan.
 subquestion: |
-  A parent can get a protective order and ask the court for temporary custody and to order the other person to stay away from specific locations including a child's school.  A parent can also ask for a protective order for themselves and 1 or more children but each person must meet the protective order requirements.
-continue button field: Who_do_you_want_the_protective_order_for
+    Do you want to continue answering questions for more information about Alaska Court System protective orders, or stop and get your Action Plan to learn more about Tribal Court protective orders now?
+buttons:
+  - Keep answering questions:
+      code: |
+        continue_after_military_info = 'keep going'
+  - Get my Action Plan now:
+      code: |
+        continue_after_military_info = 'get plan'
+---
+#  id: Who do you want the protective order for
+#  question: |
+#    Who do you want the protective order for?
+#  subquestion: |
+#    A parent can get a protective order and ask the court for temporary custody and to order the other person to stay away from specific locations including a child's school.
+#    
+#    A parent can also ask for a protective order for themselves and 1 or more children but each person must meet the protective order requirements.
+#  continue button field: Who_do_you_want_the_protective_order_for
+---
+id: number of children in my order
+question: |
+  How many children? 
+subquestion: |
+  How many children do you need the order to protect? 
+fields:
+  - no label: number_of_children
+    datatype: integer
+    min: 0
+---
+id: eligible petitioners
+question: |
+  If you get a protective order for yourself, you can ask the judge to include protections for your children also
+subquestion: |
+   some text here
+continue button field: eligibile_petitioner_question_seen  
 ---
 id: Are you asking for a protective order for yourself and your child against your child s other parent
 question: |
+ Do you need protection from your children's other parent?
+subquestion: |
   Are you asking for a protective order for yourself and your child against your child's other parent?
 yesno: protective_order_information_more_than_1_person_TF
 ---
-id: Are you the child s parent
-question: |
-  Are you the child's parent?
-continue button field: Are_you_the_childs_parent
----
-id: Are you asking for a protective order against your child s other parent
+# id: Are you the child s parent
+# question: |
+#   Are you the child's parent?
+# continue button field: Are_you_the_childs_parent
+# ---
+id: Are you asking for a protective order against your childs other parent
 question: |
   Are you asking for a protective order against your child's other parent?
 continue button field: Are_you_asking_for_a_protective_order_against_your_childs_other_parent
@@ -287,11 +394,22 @@ yesno: custody_case_information_TF
 ---
 id: Based on your answers a domestic violence protective order may be appropriate Information about how to ask the court for a domestic violence protective order has been added to your Action Plan
 question: |
-  Based on your answers, a domestic violence protective order may be appropriate.  Information about how to ask the court for a domestic violence protective order has been added to your Action Plan.
+ A domestic violence protective order may be appropriate.
 subquestion: |
-  Did you know there are 3 different lengths of time for a domestic violence protective order?
-  (1) A short-term domestic violence protective order starts right away and lasts 20 days.  It is also called an ex parte protective order.  The other side is not notified the order is being requested but if granted, law enforcement will give the other side a copy and explain what it says.  (2) A long-term domestic violence protective order lasts 1 year.  You can request a long-term protective order at the same time you ask for a short-term protective order.   The other side is notified if you request this. The court schedules a hearing about 20 days after the long-term order is requested and both sides can testify.  If a short-term or long-term domestic violence protective order is granted, the court will prohibit the other side from committing domestic violence.  (3) There is a third type of domestic violence protective order called an emergency domestic violence protective order.  While uncommon, a law enforcement officer can request an emergency domestic violence protective order on behalf of a victim and if granted, it lasts for 72 hours.
-continue button field: Based_on_your_answers_a_domestic_violence_protective_ordermay_be_appropriate_Information_about_how_to_ask_the_court_for_a_domestic_violence_protective_order_has_been_added_to_your_Action_Plan
+  We have added information about how to ask the court for a domestic violence protective order  to your Action Plan.
+  
+  Judges can order domestic violence protective orders that last for different periods:
+  
+  1. A short-term domestic violence protective order starts right away and lasts 20 days.<br>
+   This is an "ex parte protective order".<br>
+   The abusive person **only** gets notice about the order if the judge actually makes the order. The police give the abusive person a copy of the order and explain it.
+  2. A long-term domestic violence protective order lasts 1 year.<br>
+  You can ask the judge for a long-term protective order at the same time you ask for a short-term order.
+  Somebody police?  notifies the abusive person that you have asked the court for a protective order.<br>
+  The court schedules a hearing to be held about 20 days after you ask for a long-term order. Both you and the abusive person can testify.<br>
+  If a short-term or long-term domestic violence protective order is granted, the court will forbid the abusive person to abuse you or your children. 
+  3. A police officer can ask the court for an Emergency Domestic Violence Protective Order for you. This Emergency order lasts for 72  hours. The police do not ask for an Emergency order very often.  
+continue button field: ask_for_order_added
 ---
 id: Repeated contact
 question: |
@@ -379,6 +497,11 @@ subquestion: |
   Did your child experience the other person's domestic violence behavior?
   learn more: Here is the list of domestic violence crimes:....
 continue button field: List_of_potential_crimes_My_Child
+---
+id: Have Alaska court order now?
+question: |
+  Do you have an order from an Alaska court now?
+yesno: ak_order_now
 ---
 id: Foreign protective order
 question: |
@@ -549,6 +672,19 @@ subquestion: |
   How long ago did your most recent long-term protective order expire?
 yesno: extend_after_60_days_TF
 ---
+id: info for respondent
+continue button field: respondent_info
+question: |
+  You may have more than one court case
+subquestion: |
+  One domestic violence incident can result in 
+  more than one case and 
+  more than one order not to contact the other person.  
+  
+  If one case is dismissed, you may still have an order  not to contact the other person in the other case.  
+  
+  Be sure to read what each different case requires.
+---
 id: preview a2jauthor_protective_order_template
 question: |
   Preview your form before you sign it
@@ -677,7 +813,8 @@ event: a2jauthor_protective_order_template_download
 question: |
   All done
 subquestion: |
-  Thank you ${users}. Your form is ready to download and deliver.
+  #  Thank you ${users}. Your form is ready to download and deliver.
+  Your Action Plan is ready to download and print.
   
   View, download and send your form below. Click the "Edit answers" button to fix any mistakes.
 

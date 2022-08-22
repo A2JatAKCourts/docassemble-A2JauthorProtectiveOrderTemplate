@@ -53,7 +53,7 @@ setup(name='docassemble.A2JauthorProtectiveOrderTemplate',
       url='https://courtformsonline.org',
       packages=find_packages(),
       namespace_packages=['docassemble'],
-      install_requires=['docassemble.AssemblyLine>=2.13.0'],
+      install_requires=['docassemble.AssemblyLine>=2.14.1'],
       zip_safe=False,
       package_data=find_package_data(where='docassemble/A2JauthorProtectiveOrderTemplate/', package='docassemble.A2JauthorProtectiveOrderTemplate'),
      )
