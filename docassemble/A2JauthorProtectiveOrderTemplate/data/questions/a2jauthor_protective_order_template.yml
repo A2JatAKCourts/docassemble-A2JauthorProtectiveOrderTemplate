@@ -85,11 +85,14 @@ code: |
         interview_order_a2jauthor_protective_order_template = True
         a2jauthor_protective_order_template_preview_question
     if protective_order_court['ak court']:
-      who_needs_the_order
-      eligibile_petitioner_question_seen
-    set_progress(11)
-    Are_you_the_childs_parent
-    Are_you_asking_for_a_protective_order_against_your_childs_other_parent
+      if who_needs_the_order != 'me':
+        children.target_number
+        Are_you_the_childs_parent
+        stick_with_protective_order_first_asked_for
+    #    eligibile_petitioner_question_seen
+    #  set_progress(11)
+        
+        Are_you_asking_for_a_protective_order_against_your_childs_other_parent
     set_progress(22)
     Is_your_relationship_with_the_other_person_covered_by_one_of_these_descriptions
     List_of_potential_crimes
@@ -230,15 +233,17 @@ fields:
       - 'Respond if someone wants to end or change my protective order.': 'respond' 
       - 'Register my protective order from another state in Alaska.': 'register'
       - 'Respond if someone has a protective order against me.': 'answer'
-# Comment: move this content to a screen that makes more sense
-#  - note: |
-#      
-#      #### <i class="fa-regular fa-lightbulb"></i> Different types of protective orders ####
-#      Your relationship with the person you need protection from tells the court the kind of protective order you need. The court can order:
-#      
-#      * a domestic violence protective order, 
-#      * a stalking protective orders, or 
-#      * a sexual assault protective order.
+  # Comment: move this content to a screen that makes more sense
+  - note: |
+     
+     #### <i class="fa-regular fa-lightbulb"></i> Different kinds of protective orders ####
+     Your relationship with the person you need protection from and the harm they caused tells the court the kind of protective order you need. The court can order:
+     
+     * a domestic violence protective order, 
+     * a stalking protective order, or 
+     * a sexual assault protective order.
+     
+     Protective orders are also called restraining orders.
 ---
 #  id: What is your situation
 #  question: |
@@ -306,9 +311,11 @@ id: Who needs the protective order
 question: |
   What do you need the court to order?
 subquestion: |
-  A parent can get a protective order and ask the court for temporary custody and to order the other person to stay away from specific locations including a child's school.
+#  A protective order for: 
+#    You can ask the court give you temporary custody of your children and to order the other person to stay away from specific locations including a child's school.
+#    
+#    Or you can also ask for a protective order for yourself and a separate protective order for each child, but you and your children must meet the protective order requirements.
   
-  A parent can also ask for a protective order for themselves and 1 or more children but each person must meet the protective order requirements.
   
 fields: 
   - no label: who_needs_the_order
@@ -316,9 +323,19 @@ fields:
     input type: radio
     choices:
       - 'A protective order for myself.': 'me' 
-      - 'A protective order for myself that also:[BR]&nbsp;&nbsp;&nbsp;&nbsp;Gives me temporary custody of my children. And[BR]&nbsp;&nbsp;&nbsp;&nbsp;Forbids the person who abused me to contact my children.': 'me and children'
-      - 'A protective order for myself and an order for each child the abusive person harmed.': 'each child'
-      - 'A protective order for each of my children.': 'child'  
+      - 'A protective order for me that includes my children': 'me and children'
+        help: |
+          You can ask the court to give you temporary custody of your children and to order the other person to stay away from specific locations like your child's school.
+      - 'A protective order for me and an order for each child the abusive person harmed.': 'each child'
+        help: |
+          You can  ask for a protective order for yourself and a separate protective order for each child, but you and your children must meet the protective order requirements.
+      - 'A protective order for each of my children.': 'child' 
+help:
+  label: |
+    What if I am not the child’s parent?
+  content: |
+      "Your" children are any children you are legally responsible for.
+
   
   #  continue button field: Who_do_you_want_the_protective_order_for
 ---
@@ -328,32 +345,63 @@ question: |
 subquestion: |
   How many children do you need the order to protect? 
 fields:
-  - no label: number_of_children
+  - no label: children.target_number
     datatype: integer
     min: 0
 ---
-id: eligible petitioners
+id: Are you sure about the protective order you are asking for?
 question: |
-  If you get a protective order for yourself, you can ask the judge to include protections for your children also
+	Witnessing domestic violence is traumatic and harms children
 subquestion: |
-   some text here
-continue button field: eligibile_petitioner_question_seen  
+ % if who_needs_the_order == 'me and children':
+   Some children experience more than the trauma of being a witness. 
+
+  If the person who abused you *also* committed a "crime of domestic violence" against your ${children.as_noun()}, you can ask the court for a separate protective order for each child the person abused.
+ % else:
+   Did the abusive person commit a "crime of domestic violence" against your ${children.as_noun()}?
+ % endif
+ ###Things to think about: Pros and Cons
+
+  If you ask the court for a protective order for each child the person abused, you will have to show the court that the abusive person committed a ‘crime of violence.’ You do not have to name the crime, but your description must show the judge that the abusive person’s behavior fits one of these crimes.
+
+  If you did not witness the behavior yourself, (and you do not have another witness?) your child will have to testify.
+
+  If it is not safe for the abused person to have visitation with your child or only supervised visitation is safe or you need to ask for primary custody your  case will be stronger if the judge gives your child their own protective order.
+  
+ Do you still want to
+ % if who_needs_the_order == 'me and children':
+   Ask for a protective order that includes your ${children.as_noun()} **or** do you want to ask for protective orders for each of you?
+ % else:
+   Ask for a protective order that includes your ${children.as_noun()} or do you want to as for protective orders for each of you?
+ % endif
+field: stick_with_protective_order_first_asked_for
+buttons:
+  - Yes: True
+  - No: False
+    
 ---
-id: Are you asking for a protective order for yourself and your child against your child s other parent
+#  id: eligible petitioners
+#  question: |
+#    If you get a protective order for yourself, you can ask the judge to include protections for your ${children.as_noun()} also
+#  subquestion: |
+#     some text here
+#  continue button field: eligibile_petitioner_question_seen  
+---
+id: Are you asking for a protective order for yourself and your ${children.as_noun()} against your ${children.as_noun()}'s other parent
 question: |
- Do you need protection from your children's other parent?
+ Do you need protection from your ${children.as_noun()}'s other parent?
 subquestion: |
   Are you asking for a protective order for yourself and your child against your child's other parent?
 yesno: protective_order_information_more_than_1_person_TF
 ---
-# id: Are you the child s parent
-# question: |
-#   Are you the child's parent?
-# continue button field: Are_you_the_childs_parent
-# ---
-id: Are you asking for a protective order against your childs other parent
+id: Are you the child s parent
 question: |
-  Are you asking for a protective order against your child's other parent?
+  Are you the ${children.as_noun()}'s parent?
+continue button field: Are_you_the_childs_parent
+---
+id: Are you asking for a protective order against your ${children.as_noun()} other parent
+question: |
+  Are you asking for a protective order against your ${children.as_noun()}'s other parent?
 continue button field: Are_you_asking_for_a_protective_order_against_your_childs_other_parent
 ---
 id: Is your relationship with the other person covered by one of these descriptions
