@@ -466,13 +466,32 @@ question: |
   % else:
   your ${children.as_noun()}
   % endif
- 
 subquestion: |
   Are you related to the person who abused you in any of these ways? 
-
-  
-  - We live together, as housemates or romantic partners.
  
+  - We are married to each other now.
+  - We used to be married to each other.
+  - They are a step-parent to me.
+  - We date each other now.
+  - We used to date.
+  - We have a sexual relationship now.
+  - We had a sexual relationship in the past.
+  - We live together, as housemates or romantic partners.
+  % if not Are_you_asking_for_a_protective_order_against_your_childs_other_parent:
+  - We have a child together
+  % endif
+  - We used to live together, as housemates or romantic partners.
+  - We are related by marriage. We are 'in-laws.'
+  - We used to be related by marriage. We used to be 'in-laws.'
+  - We are related by blood - they are my sibling, child, grandchild, aunt, uncle, nephew, niece, or first cousin.
+  - One of my parents is related to the person who abused
+  % if who_needs_the_order == 'me':
+  me
+  % elif who_needs_the_order in ('me and children', 'each child'):
+  me and my ${children.as_noun()}
+  % else:
+  my ${children.as_noun()}
+  % endif.
 yesno: related_to_abusive_person
 
 
