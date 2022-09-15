@@ -79,215 +79,42 @@ code: |
     if protective_order_court['military']:
       if continue_after_military_info == 'get plan':        
         interview_order_a2jauthor_protective_order_template = True
+        a2jauthor_protective_order_template_preview_question
     if protective_order_court['tribal']:
       if continue_after_tribal_info == 'get plan':
         interview_order_a2jauthor_protective_order_template = True
+        a2jauthor_protective_order_template_preview_question
     if protective_order_court['ak court']:
-      if who_needs_the_order == 'me':
-        if List_of_potential_crimes:
-          if related_to_abusive_person:
-            child_with_other_side_Info_TF
-            divorce_info_TF 
-            ask_for_order_added
-          else:
-            You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
-            if ask_for_a_stalking_PO_TF:
-              You_may_qualify_for_a_stalking_Protective_Order 
-            else:
-              if ask_for_a_so_po_TF:
-                You_may_qualify_for_a_sexual_assault_Protective_Order  
-              else:
-                You_may_not_qualify_for_a_Protective_Order
-        else:
-          You_may_not_qualify_for_a_Protective_Order
       if who_needs_the_order != 'me':
         children.target_number
-        if Are_you_the_childs_parent:
-          if Are_you_asking_for_a_protective_order_against_your_childs_other_parent:
-            if who_needs_the_order in ('me and children', 'each child'):
-              if List_of_potential_crimes:
-                if who_needs_the_order =='each child':
-                  if List_of_potential_crimes_My_Child:
-                    ask_for_order_added
-                  else:
-                    You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
-                else:
-                  ask_for_order_added   
-              # No DV crimes
-              else:
-                # Comment if parent asking for self and children doesn't qualify, is it worth asking to see if children qualify and go from there? 
-                You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
-                if ask_for_a_stalking_PO_TF:
-                  You_may_qualify_for_a_stalking_Protective_Order 
-                else:
-                  if ask_for_a_so_po_TF:
-                    You_may_qualify_for_a_sexual_assault_Protective_Order  
-                  else:
-                    You_may_not_qualify_for_a_Protective_Order
-            elif who_needs_the_order == 'child':
-              if List_of_potential_crimes_My_Child:
-                ask_for_order_added
-              else:
-                You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
-          elif not Are_you_asking_for_a_protective_order_against_your_childs_other_parent:
-            if related_to_abusive_person:
-              if who_needs_the_order in ('me and children', 'each child'):
-                if List_of_potential_crimes:
-                  if who_needs_the_order =='each child':
-                    if List_of_potential_crimes_My_Child:
-                      ask_for_order_added
-                    else:
-                      You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
-                  else:
-                    ask_for_order_added   
-                else:
-                    # Comment if parent asking for self and children doesn't qualify, is it worth asking to see if children qualify and go from there? 
-                    You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
-                    if ask_for_a_stalking_PO_TF:
-                      You_may_qualify_for_a_stalking_Protective_Order 
-                    else:
-                      if ask_for_a_so_po_TF:
-                        You_may_qualify_for_a_sexual_assault_Protective_Order  
-                      else:
-                        You_may_not_qualify_for_a_Protective_Order
-              elif who_needs_the_order == 'child':
-                if List_of_potential_crimes_My_Child:
-                  if Childs_relationship_with_abusive_person:
-                    ask_for_order_added
-                  else:
-                    You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
-                    if ask_for_a_stalking_PO_TF:
-                      You_may_qualify_for_a_stalking_Protective_Order 
-                    else:
-                      if ask_for_a_so_po_TF:
-                        You_may_qualify_for_a_sexual_assault_Protective_Order  
-                      else:
-                        You_may_not_qualify_for_a_Protective_Order
-                else: 
-                  You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
-                  if ask_for_a_stalking_PO_TF:
-                    You_may_qualify_for_a_stalking_Protective_Order 
-                  else:
-                    if ask_for_a_so_po_TF:
-                      You_may_qualify_for_a_sexual_assault_Protective_Order  
-                    else:
-                      You_may_not_qualify_for_a_Protective_Order
-            else:
-              if who_needs_the_order == 'child':
-                if List_of_potential_crimes_My_Child:
-                  if Childs_relationship_with_abusive_person:
-                    ask_for_order_added
-                  else:
-                    You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
-                    if ask_for_a_stalking_PO_TF:
-                      You_may_qualify_for_a_stalking_Protective_Order 
-                    else:
-                      if ask_for_a_so_po_TF:
-                        You_may_qualify_for_a_sexual_assault_Protective_Order  
-                      else:
-                        You_may_not_qualify_for_a_Protective_Order
-                else:
-                  You_may_not_qualify_for_a_Protective_Order
-              else: 
-                You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
-                if ask_for_a_stalking_PO_TF:
-                  You_may_qualify_for_a_stalking_Protective_Order 
-                else:
-                  if ask_for_a_so_po_TF:
-                    You_may_qualify_for_a_sexual_assault_Protective_Order  
-                  else:
-                    You_may_not_qualify_for_a_Protective_Order
-        elif not Are_you_the_childs_parent:
-          if user_relationship_to_child =='other':
-            You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
-          else:
-            if who_needs_the_order in ('me and children', 'each child'):
-              if List_of_potential_crimes:
-                if related_to_abusive_person:
-                  if who_needs_the_order == 'me and children':
-                    ask_for_order_added 
-                  elif who_needs_the_order == 'each child':
-                    if List_of_potential_crimes_My_Child:
-                      if Childs_relationship_with_abusive_person:
-                        ask_for_order_added
-                      else: 
-                        You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
-                        if ask_for_a_stalking_PO_TF:
-                          You_may_qualify_for_a_stalking_Protective_Order 
-                        else:
-                          if ask_for_a_so_po_TF:
-                            You_may_qualify_for_a_sexual_assault_Protective_Order  
-                          else:
-                            You_may_not_qualify_for_a_Protective_Order
-                elif not related_to_abusive_person:
-                  You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
-                  if ask_for_a_stalking_PO_TF:
-                    You_may_qualify_for_a_stalking_Protective_Order 
-                  else:
-                    if ask_for_a_so_po_TF:
-                      You_may_qualify_for_a_sexual_assault_Protective_Order  
-                    else:
-                      You_may_not_qualify_for_a_Protective_Order  
-              elif not List_of_potential_crimes:
-                You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
-                if ask_for_a_stalking_PO_TF:
-                  You_may_qualify_for_a_stalking_Protective_Order 
-                else:
-                  if ask_for_a_so_po_TF:
-                    You_may_qualify_for_a_sexual_assault_Protective_Order  
-                  else:
-                    You_may_not_qualify_for_a_Protective_Order
-            elif who_needs_the_order == 'child':
-              if List_of_potential_crimes_My_Child:
-                if Childs_relationship_with_abusive_person:
-                  ask_for_order_added
-                else: 
-                  You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
-                  if ask_for_a_stalking_PO_TF:
-                    You_may_qualify_for_a_stalking_Protective_Order 
-                  else:
-                    if ask_for_a_so_po_TF:
-                      You_may_qualify_for_a_sexual_assault_Protective_Order  
-                    else:
-                      You_may_not_qualify_for_a_Protective_Order
-              else: 
-                You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
-                if ask_for_a_stalking_PO_TF:
-                  You_may_qualify_for_a_stalking_Protective_Order 
-                else:
-                  if ask_for_a_so_po_TF:
-                    You_may_qualify_for_a_sexual_assault_Protective_Order  
-                  else:
-                    You_may_not_qualify_for_a_Protective_Order
-    
-      
-  interview_order_a2jauthor_protective_order_template = True
+        Are_you_the_childs_parent
+        stick_with_protective_order_first_asked_for
+    #    eligibile_petitioner_question_seen
+    #  set_progress(11)
         
-        
-    #  set_progress(22)
-    
-    #  List_of_potential_crimes
-    #  child_with_other_side_Info_TF
-    #  divorce_info_TF
-    #  custody_case_information_TF
-    #  set_progress(33)
-    #  ask_for_order_added
-    #  ask_for_a_stalking_PO_TF
-    #  ask_for_a_so_po_TF
-    #  You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
-    #  You_may_not_qualify_for_a_Protective_Order
-    #  set_progress(44)
-    #  Childs_relationship_with_abusive_person
-    #  protective_order_information_TF
-    #  List_of_potential_crimes_My_Child
+        Are_you_asking_for_a_protective_order_against_your_childs_other_parent
+    set_progress(22)
+    Is_your_relationship_with_the_other_person_covered_by_one_of_these_descriptions
+    List_of_potential_crimes
+    child_with_other_side_Info_TF
+    divorce_info_TF
+    custody_case_information_TF
+    set_progress(33)
+    ask_for_order_added
+    ask_for_a_stalking_PO_TF
+    ask_for_a_so_po_TF
+    You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
+    You_may_not_qualify_for_a_Protective_Order
+    set_progress(44)
+    childs_relationship_with_abusive_person
+    protective_order_information_TF
+    list_of_potential_crimes_My_Child
 
       
-  #  elif your_situation in ('answer'):
-  #    respondent_info
-  #    answer_term
-  #  else: 
-  #    ak_order_now
-  
+  if your_situation in ('change', 'end', 'hearing', 'report','register'):
+    ak_order_now
+  if your_situation in ('answer'):
+    respondent_info
   
   #    your_situation 
   #    What_is_your_situation
@@ -314,24 +141,24 @@ code: |
   # Childs_relationship_with_abusive_person
   # protective_order_information_TF
   # List_of_potential_crimes_My_Child
-  #    register_foreign_order_TF
-  #    Did_you_also_request_a_longterm_protective_order
-  #    set_progress(55)
-  #    other_side_violated_order_TF
-  #    Do_you_also_want_your_Action_Plan_to_include_information_about
-  #    Do_you_want_your_Action_Plan_to_include_information_about
-  #    Do_you_want_your_Action_Plan_to_include_information_about_extending_the_protective_order
-  #    short_term_wants_nothing_else_TF
-  #    set_progress(66)
-  #    _LT_info_added_change_or_end
-  #    change_po_against_me_TF
-  #    respond_PO_change_end_TF
-  #    have_protective_order_prepare_for_long_hearing_TF
-  #    change_protective_order_TF
-  #    set_progress(77)
-  #    extend_less_than_10_days_TF
-  #    extend_after_60_days_TF
-  #    interview_order_a2jauthor_protective_order_template = True
+  register_foreign_order_TF
+  Did_you_also_request_a_longterm_protective_order
+  set_progress(55)
+  other_side_violated_order_TF
+  Do_you_also_want_your_Action_Plan_to_include_information_about
+  Do_you_want_your_Action_Plan_to_include_information_about
+  Do_you_want_your_Action_Plan_to_include_information_about_extending_the_protective_order
+  short_term_wants_nothing_else_TF
+  set_progress(66)
+  _LT_info_added_change_or_end
+  change_po_against_me_TF
+  respond_PO_change_end_TF
+  have_protective_order_prepare_for_long_hearing_TF
+  change_protective_order_TF
+  set_progress(77)
+  extend_less_than_10_days_TF
+  extend_after_60_days_TF
+  interview_order_a2jauthor_protective_order_template = True
 ---
 ###################### Main order ######################
 comment: |
@@ -349,19 +176,13 @@ code: |
   #  basic_questions_signature_flow    
   a2jauthor_protective_order_template_download
 ---
-auto terms:
-  crime of domestic violence: |
-    Assault (physically hurting someone including making someone afraid they are about to be hurt) - Criminal mischief (damaging someone's property) - Harassment (including repeated calls at extremely inconvenient times) - Reckless endangerment (recklessly behaving in a way that risks serious injury to someone) - Arson - Assault on an unborn child - Burglary - Coercion - Criminally negligent burning - Criminal trespass - Cruelty to pets - Custodial interference - Extortion - Homicide - Human trafficking - Kidnapping - Reckless endangerment - Robbery - Sexual offenses - Stalking - Terroristic threatening - Violating a protective order
----
 comment: |
   This question is used to introduce your interview. Please customize
 id: Protective_Orders_converted_from_A2J_template_only
 continue button field: a2jauthor_protective_order_template_intro
 question: |
-  **If you or someone else is in immediate danger, call 911. ** 
+  **If you or someone else is in immediate danger, call 911. ** 
 subquestion: |
-  Testing interview 3
-  
   Do you want information about:
   
   * safety plans, 
@@ -440,7 +261,7 @@ subquestion: |
   
   You may have other options for protective orders:
   
-  * Military: If any of the parties involved are in the military, you may qualify for a protective order from the military. 
+  * Military: If any of the parties involved are in the military, you may qualify for a protective order from the military. 
   
   * Tribal Court: If any of the parties involved are tribal members, you may qualify for a protective order from the Tribal Court.
 fields:
@@ -464,7 +285,7 @@ id: Continue answering questions about Tribal Court protective orders
 question: |
   We have added information about Tribal Court protective orders to your Action Plan.
 subquestion: |
-    Do you want to continue answering questions for more information about Alaska Court System protective orders, or stop and get your Action Plan to learn more about Tribal Court protective orders now?
+    Do you want to continue answering questions for more information about Alaska Court System protective orders, or stop and get your Action Plan to learn more about Tribal Court protective orders now?
 buttons:
   - Keep answering questions:
       code: |
@@ -477,7 +298,7 @@ id: Continue answering questions about military protective orders
 question: |
   We have added information about military protective orders to your Action Plan.
 subquestion: |
-    Do you want to continue answering questions for more information about Alaska Court System protective orders, or stop and get your Action Plan to learn more about Tribal Court protective orders now?
+    Do you want to continue answering questions for more information about Alaska Court System protective orders, or stop and get your Action Plan to learn more about Tribal Court protective orders now?
 buttons:
   - Keep answering questions:
       code: |
@@ -535,11 +356,11 @@ subquestion: |
  % if who_needs_the_order == 'me and children':
    Some children experience more than the trauma of being a witness. 
 
-  If the person who abused you **also** committed a "crime of domestic violence" against your ${children.as_noun()}, you can ask the court for a separate protective order for each child the person abused.
+  If the person who abused you *also* committed a "crime of domestic violence" against your ${children.as_noun()}, you can ask the court for a separate protective order for each child the person abused.
  % else:
    Did the abusive person commit a "crime of domestic violence" against your ${children.as_noun()}?
  % endif
- ##Things to think about: Pros and Cons
+ ###Things to think about: Pros and Cons
 
   If you ask the court for a protective order for each child the person abused, you will have to show the court that the abusive person committed a ‘crime of violence.’ You do not have to name the crime, but your description must show the judge that the abusive person’s behavior fits one of these crimes.
 
@@ -549,15 +370,15 @@ subquestion: |
   
  Do you still want to
  % if who_needs_the_order == 'me and children':
-   ask for a protective order that includes your ${children.as_noun()} **or** do you want to ask for protective orders for each of you?
+   Ask for a protective order that includes your ${children.as_noun()} **or** do you want to ask for protective orders for each of you?
  % else:
-   ask for a protective order that includes your ${children.as_noun()} or do you want to ask for protective orders for each of you?
+   Ask for a protective order that includes your ${children.as_noun()} or do you want to as for protective orders for each of you?
  % endif
 field: stick_with_protective_order_first_asked_for
 buttons:
-  code: |
-    [{'label': "I still want to ask for an order that includes my ${children}." if who_needs_the_order == 'me and children' else "I still want to ask for an order for each of us.", 'value': 'True'}, 
-     {'label': "I changed my mind. I need an order for each of us." if who_needs_the_order == 'me and children' else "I changed my mind. I want to ask for an order that includes my ${children}.", 'value': 'False'}]
+  - Yes: True
+  - No: False
+    
 ---
 #  id: eligible petitioners
 #  question: |
@@ -570,105 +391,54 @@ id: Are you asking for a protective order for yourself and your ${children.as_no
 question: |
  Do you need protection from your ${children.as_noun()}'s other parent?
 subquestion: |
-  Are you asking for a protective order for yourself and your child against your child's other parent?
+  Are you asking for a protective order for yourself and your child against your child's other parent?
 yesno: protective_order_information_more_than_1_person_TF
 ---
-id: "Are you the child's parent"
+id: Are you the child s parent
 question: |
   Are you the ${children.as_noun()}'s parent?
-yesno: Are_you_the_childs_parent
-  # Comment: (Suzanne email Tue 8/2/2022 6:37 PM subj: DV petitions for minors)
-under: |
-  ####<i class="fa-regular fa-lightbulb"></i> Who can file - from Suzanne
-  The truth is – there is a split among judicial officers in Anchorage and throughout the state.  Many people, myself included, interpret “other representative” broadly for the 20 day order.  (There are a few, however, who take the approach that the adult filing OBO must have some legal standing to do so – if not a parent or guardian then at least with a POA or delegation of parental rights or something). 
-  Often at the time of the short-term hearing, the adult is advised to file a guardianship or go through OCS. At the long-term hearing, many think that if a Guardianship has not been filed or OCS is not taking at least legal custody, then the case can’t proceed.  In many jurisdictions outside of Anchorage, the court will appoint a GAL who will then be substituted at the long-term hearing.  (We don’t do that in Anchorage for the most part due to the limited resource.)
-  I personally take a more liberal approach – particularly if it’s a teenager and both parents are at least aware of the case/allegations.  I will authorize the adult as the “other representative” to go forward with the long-term.
- 
+continue button field: Are_you_the_childs_parent
 ---
-id: users relationship to child
+id: Are you asking for a protective order against your ${children.as_noun()} other parent
 question: |
-  How are you related to your ${children.as_noun()}?
-fields: 
-  - no label: user_relationship_to_child
-    datatype: radio
-    code: |
-      relationships
----
-code: |
-  relationships = [{'guardian': "I am their guardian"},
-                   {'legal rep': "I am their legal representative."},
-                   {'poa': "I have power of attorney."},
-                   {'gal': "I am their guardian ad litem"},
-                   {'other': "I have some other relationship with them."}
-                  ]
----
-id: Are you asking for a protective order against the other parent
-question: |
-  Are you asking for a protective order against 
-  % if Are_you_the_childs_parent:  
-  your ${children.as_noun()}'s other parent?
-  % else:
-  one of your ${children.as_noun()}'s parents?
-  % endif
-yesno: Are_you_asking_for_a_protective_order_against_your_childs_other_parent
+  Are you asking for a protective order against your ${children.as_noun()}'s other parent?
+continue button field: Are_you_asking_for_a_protective_order_against_your_childs_other_parent
 ---
 id: Is your relationship with the other person covered by one of these descriptions
 question: |
-  Are you related to the person who abused
-  % if who_needs_the_order == 'me':
-  you
-  % elif who_needs_the_order in ('me and children', 'each child'):
-  you and your ${children.as_noun()}
-  % else:
-  your ${children.as_noun()}
-  % endif
+  Is your relationship with the other person covered by one of these descriptions?
 subquestion: |
-  Are you related to the person who abused you in any of these ways? 
- 
-  - We are married to each other now.
-  - We used to be married to each other.
-  - They are a step-parent to me.
-  - We date each other now.
-  - We used to date.
-  - We have a sexual relationship now.
-  - We had a sexual relationship in the past.
-  - We live together, as housemates or romantic partners.
-  - We have a child together
-  - We used to live together, as housemates or romantic partners.
-  - We are related by marriage. We are 'in-laws.'
-  - We used to be related by marriage. We used to be 'in-laws.'
-  - We are related by blood - they are my sibling, child, grandchild, aunt, uncle, nephew, niece, or first cousin.
-  - One of my parents is related to the person who abused
-  % if who_needs_the_order == 'me':
-  me
-  % elif who_needs_the_order in ('me and children', 'each child'):
-  me and my ${children.as_noun()}
-  % else:
-  my ${children.as_noun()}
-  % endif.
-yesno: related_to_abusive_person
-  # yesno: Is_your_relationship_with_the_other_person_covered_by_one_of_these_descriptions
+  Is your relationship with the other person covered by one of these descriptions? 
+  
+  - Married to each other now or in the past
+  
+  - Dating / sexual relationship now or in past
+  
+  - Living together now or in past (roommates or romantic relationship)
+  
+  - Have child together
+  
+  - Related by marriage now or in past (such as in-laws)
+  
+  - Blood relatives such as parents, siblings, children, grandchildren, aunts, uncles, nephews, nieces, first cousins
+  
+  - The person asking for the protective order is a child of a person in a relationship described above
+continue button field: Is_your_relationship_with_the_other_person_covered_by_one_of_these_descriptions
 ---
 id: List of potential crimes
 question: |
   List of potential crimes
 subquestion: |
-  To get a protective order, the person who abused you must have committed a "crime of domestic violence" against you.
+  To get a protective order, the other person must have committed a "crime of domestic violence" against you.  The crimes are listed below.  You don't need to know the name or definition of the crime, but you must tell the judge specifically what domestic violence behavior the other person did to you.    Common examples are when someone hits you or makes you afraid they are about to hurt you. 
   
-  You do not need to name the crime, but you must tell the judge as many details about the abuse as you can so the judge can see that the person who abused you committed domestic violence.
-  
-  Common examples are when someone hits you or makes you afraid they are about to hurt you.
-  
-  Did you experience the person who abused you's domestic violence?
-yesno: List_of_potential_crimes
+  Did you experience the other person's domestic violence behavior?
+continue button field: List_of_potential_crimes
 ---
-id: Do you and the person who abused you have any children together
+id: Do you and the other side have any children together
 question: |
-  Do you and the person who abused you have any children together?
+  Do you and the other side have any children together?
 subquestion: |
-  If you and the the person who abused you have any children together, you can ask the court to make a parenting schedule and order child support as part of the protective order.
-  
-  Do you need the court to order a Parenting Plan and Child Support?
+  If you and the other side have any children together, you can ask the court to make a parenting schedule and order child support as part of the protective order.
 yesno: child_with_other_side_Info_TF
 ---
 id: do you want information about ending your marriage through a separate case for a divorce or dissolution
@@ -680,16 +450,16 @@ yesno: divorce_info_TF
 ---
 id: do you want information about starting a separate court case to get parenting plan custody and child support orders
 question: |
-  do you want information about starting a separate court case to get parenting plan, custody, and child support orders?
+  do you want information about starting a separate court case to get parenting plan, custody, and child support orders?
 subquestion: |
-  If you and the other side have any children together, do you want information about starting a separate court case to get parenting plan, custody, and child support orders?
+  If you and the other side have any children together, do you want information about starting a separate court case to get parenting plan, custody, and child support orders?
 yesno: custody_case_information_TF
 ---
 id: Based on your answers a domestic violence protective order may be appropriate Information about how to ask the court for a domestic violence protective order has been added to your Action Plan
 question: |
  A domestic violence protective order may be appropriate.
 subquestion: |
-  We have added information about how to ask the court for a domestic violence protective order to your Action Plan.
+  We have added information about how to ask the court for a domestic violence protective order  to your Action Plan.
   
   Judges can order domestic violence protective orders that last for different periods:
   
@@ -723,7 +493,7 @@ id: Sexual contact without consent
 question: |
   Sexual contact without consent
 subquestion: |
-  Did the other person have sexual contact with you without consent?
+  Did the other person have sexual contact with you without consent?
   
   A sexual assault protective order may be an option if someone who is not a relative, roommate, or intimate partner had sexual contact with you without your consent.
 fields:
@@ -736,35 +506,21 @@ id: You may not qualify for a Domestic Violence Protective Order
 question: |
   You may not qualify for a Domestic Violence Protective Order
 subquestion: |
-  Based on your answers, a domestic violence protective order may not be appropriate if there was no domestic violence crime.  You may be experiencing domestic violence that may not be considered a crime under the law such as calling you names, making you feel like you shouldn't talk to friends or family, or limiting your access to money.  If you don't qualify for a protective order you can take steps to stay safe.  Information about options and safety planning has been added to your Action Plan.
+  Based on your answers, a domestic violence protective order may not be appropriate if there was no domestic violence crime.  You may be experiencing domestic violence that may not be considered a crime under the law such as calling you names, making you feel like you shouldn't talk to friends or family, or limiting your access to money.  If you don't qualify for a protective order you can take steps to stay safe.  Information about options and safety planning has been added to your Action Plan.
 continue button field: You_may_not_qualify_for_a_Domestic_Violence_Protective_Order
 ---
 id: You may not qualify for a Protective Order
 question: |
   You may not qualify for a Protective Order
 subquestion: |
-  Based on your answers, a protective order may not be appropriate.  If you don't qualify for a protective order you can take steps to stay safe.  Information about options and safety planning has been added to your Action Plan.
+  Based on your answers, a protective order may not be appropriate.  If you don't qualify for a protective order you can take steps to stay safe.  Information about options and safety planning has been added to your Action Plan.
 continue button field: You_may_not_qualify_for_a_Protective_Order
----
-id: You may qualify for a stalking Protective Order
-question: |
-  You may qualify for a stalking protective order
-subquestion: |
-  Based on your answers, a stalking protective order may be appropriate.  Information about asking for a stalking protective order has been added to your Action Plan.
-continue button field: You_may_qualify_for_a_stalking_Protective_Order
----
-id: You may qualify for a sexual assault Protective Order
-question: |
-  You may qualify for a sexual assault protective order
-subquestion: |
-  Based on your answers, a sexual assault protective order may be appropriate.  Information about asking for a sexual assault protective order has been added to your Action Plan.
-continue button field: You_may_qualify_for_a_sexual_assault_Protective_Order
 ---
 id: Child s relationship with abusive person
 question: |
   Child's relationship with abusive person
 subquestion: |
-  Is the child's relationship with the other person covered by one of these descriptions? 
+  Is the child's relationship with the other person covered by one of these descriptions? 
   
   - Married to each other now or in the past
   
@@ -788,18 +544,18 @@ id: List of potential crimes Child
 question: |
   List of potential crimes (Child)
 subquestion: |
-  To get a protective order, the other person must have committed a "crime of domestic violence" against the child.  The crimes are listed below.  You don't need to know the name or definition of the crime, but you must tell the judge specifically what domestic violence behavior the other person did to the child.    Common examples are when someone hits, or makes someone afraid they are about to be hurt. 
+  To get a protective order, the other person must have committed a "crime of domestic violence" against the child.  The crimes are listed below.  You don't need to know the name or definition of the crime, but you must tell the judge specifically what domestic violence behavior the other person did to the child.    Common examples are when someone hits, or makes someone afraid they are about to be hurt. 
   
   Did the child experience the other person's domestic violence behavior?
   
-  Assault (physically hurting someone including making someone afraid they are about to be hurt) - Criminal mischief (damaging someone's property) - Harassment (including repeated calls at extremely inconvenient times) - Reckless endangerment (recklessly behaving in a way that risks serious injury to someone) - Arson - Assault on an unborn child - Burglary - Coercion - Criminally negligent burning - Criminal trespass - Cruelty to pets - Custodial interference - Extortion - Homicide - Human trafficking - Kidnapping - Reckless endangerment - Robbery - Sexual offenses - Stalking - Terroristic threatening - Violating a protective order
+  Assault (physically hurting someone including making someone afraid they are about to be hurt) - Criminal mischief (damaging someone's property) - Harassment (including repeated calls at extremely inconvenient times) - Reckless endangerment (recklessly behaving in a way that risks serious injury to someone) - Arson - Assault on an unborn child - Burglary - Coercion - Criminally negligent burning - Criminal trespass - Cruelty to pets - Custodial interference - Extortion - Homicide - Human trafficking - Kidnapping - Reckless endangerment - Robbery - Sexual offenses - Stalking - Terroristic threatening - Violating a protective order
 yesno: protective_order_information_TF
 ---
 id: List of potential crimes My Child
 question: |
   List of potential crimes (My Child)
 subquestion: |
-  To get a protective order, the other person must have committed a "crime of domestic violence" against your child.  The crimes are listed below.  You don't need to know the name or definition of the crime, but you must tell the judge specifically what domestic violence behavior the other person did to your child.    Common examples are when someone hits, or makes someone afraid they are about to be hurt. 
+  To get a protective order, the other person must have committed a "crime of domestic violence" against your child.  The crimes are listed below.  You don't need to know the name or definition of the crime, but you must tell the judge specifically what domestic violence behavior the other person did to your child.    Common examples are when someone hits, or makes someone afraid they are about to be hurt. 
   
   Did your child experience the other person's domestic violence behavior?
   learn more: Here is the list of domestic violence crimes:....
@@ -816,7 +572,7 @@ question: |
 subquestion: |
   Information about registering a protective order with the Alaska Court System has been added to your Action Plan.
   
-  Do you also want information about getting a protective order from the Alaska Court System?
+  Do you also want information about getting a protective order from the Alaska Court System?
 yesno: register_foreign_order_TF
 ---
 id: Did you also request a long term protective order
@@ -833,7 +589,7 @@ id: Do you also want your Action Plan to include information about
 question: |
   Do you also want your Action Plan to include information about
 subquestion: |
-  asking the court to change or end the protective order, or how to respond if the other side filed papers that asked the court to change or end the protective order (usually called a Request to Modify or a Request to Dissolve)?
+  asking the court to change or end the protective order, or how to respond if the other side filed papers that asked the court to change or end the protective order (usually called a Request to Modify or a Request to Dissolve)?
   
   Change End MC
 continue button field: Do_you_also_want_your_Action_Plan_to_include_information_about
@@ -842,7 +598,7 @@ id: Do you want your Action Plan to include information about
 question: |
   Do you want your Action Plan to include information about
 subquestion: |
-  asking the court to change or end the protective order, or how to respond if the other side filed papers that asked the court to change or end the protective order (usually called a Request to Modify or a Request to Dissolve)?
+  asking the court to change or end the protective order, or how to respond if the other side filed papers that asked the court to change or end the protective order (usually called a Request to Modify or a Request to Dissolve)?
   IF [Change End MC] = "change" 
   SET [Change protective order TF] TO TRUE
   GOTO "5x -done"
@@ -905,7 +661,7 @@ id: 5 change or end no AP
 question: |
   5 -change or end no AP
 subquestion: |
-  Do you want your Action Plan to include information about asking the court to change or end the protective order, or how to respond if the other side filed papers that asked the court to change or end the protective order (usually called a Request to Modify or a Request to Dissolve)?
+  Do you want your Action Plan to include information about asking the court to change or end the protective order, or how to respond if the other side filed papers that asked the court to change or end the protective order (usually called a Request to Modify or a Request to Dissolve)?
 fields:
   - "Ask to change a protective order against you": change_po_against_me_TF
     datatype: yesno
@@ -918,7 +674,7 @@ id: 8n add change end LT no AP
 question: |
   8n - add change end (LT no AP)
 subquestion: |
-  Do you want your Action Plan to include information about asking the court to change or end the protective order, or how to respond if the other side filed papers that asked the court to change or end the protective order (usually called a Request to Modify or a Request to Dissolve)?
+  Do you want your Action Plan to include information about asking the court to change or end the protective order, or how to respond if the other side filed papers that asked the court to change or end the protective order (usually called a Request to Modify or a Request to Dissolve)?
   
   IF [Change End MC] = "change" 
   SET [Change protective order TF] TO TRUE
@@ -949,16 +705,16 @@ question: |
 subquestion: |
   Do you have a short-term (20 day) or long-term protective order?
   What if I am not sure?
-  Look at the protective order that you have signed by the judge.  It will tell you what type it is.
+  Look at the protective order that you have signed by the judge.  It will tell you what type it is.
 yesno: have_protective_order_prepare_for_long_hearing_TF
 ---
 id: 6a end has AP
 question: |
   6a -end has AP
 subquestion: |
-  Information about what to do if someone violated the protective order has been added to your Action Plan. 
+  Information about what to do if someone violated the protective order has been added to your Action Plan. 
   
-  Do you also want your Action Plan to include information about asking the court to change or end the protective order, or how to respond if the other side filed papers that asked the court to change or end the protective order (usually called a Request to Modify or a Request to Dissolve)?
+  Do you also want your Action Plan to include information about asking the court to change or end the protective order, or how to respond if the other side filed papers that asked the court to change or end the protective order (usually called a Request to Modify or a Request to Dissolve)?
 yesno: change_protective_order_TF
 ---
 id: 12 How long until expire
@@ -986,19 +742,11 @@ question: |
 subquestion: |
   One domestic violence incident can result in 
   more than one case and 
-  more than one order not to contact the other person.  
+  more than one order not to contact the other person.  
   
-  If one case is dismissed, you may still have an order  not to contact the other person in the other case.  
+  If one case is dismissed, you may still have an order  not to contact the other person in the other case.  
   
   Be sure to read what each different case requires.
----
-id: respondent short or long term
-question: |
-  Is it a short-term or a long-term order?
-field: answer_term
-buttons:
-  - short-term
-  - long-term
 ---
 id: preview a2jauthor_protective_order_template
 question: |
@@ -1162,5 +910,3 @@ attachments:
     variable name: a2jauthor_protective_order_template_attachment[i]        
     skip undefined: True
     docx template file: a2jauthor_protective_order_template.docx
----
-
